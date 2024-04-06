@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="querystyles.css">
+  <link rel="icon" type="image/x-icon" href="assets/icon.jpg">
+  <title>ACE</title>
+</head>
+<body>
+  <video autoplay muted loop id="video-background">
+    <source src="assets/backgroundchat.mp4" type="video/mp4">
+  </video>
+  <div class="prompt">
+    <h2>Submit Your Query</h2>
+    <form id="queryForm">
+      <input type="text" name="title" placeholder="Title" required>
+      <textarea name="query" placeholder="Your Query" required></textarea>
+      <input type="file" name="attachment">
+      <div id="submitcancel">
+      <button type="submit">Submit</button>
+      <button type="button" onclick="cancelSubmission()">Cancel</button>
+    </div>
+    </form>
+  </div >
+  <script>
+    document.getElementById('queryForm').addEventListener('submit', function(event) {
+      event.preventDefault();
+      window.location.href = "dashboardquery.html";
+    });
+    function cancelSubmission() {
+      window.location.href = "dashboardquery.html";
+    }
+  </script>
+</body>
+</html>
