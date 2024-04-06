@@ -1,3 +1,8 @@
+
+window.onload = function() {
+    var container = document.getElementById("container");
+    container.style.transition = "width 1s";
+    container.style.width = "100%";
 const submit = document.querySelector("#submit");
 
 //redirect to sign up

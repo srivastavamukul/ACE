@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login / Signup - Anonymous Connection Establisher</title>
+  <link rel="stylesheet" href="signupstyles.css">
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <h1>Login / Signup</h1>
+  </header>
+
+  <!-- Main Content Section -->
+  <main>
+    <!-- Slider -->
+    <div class="slider">
+      <button class="tablinks active" onclick="openForm('login')">Login</button>
+      <button class="tablinks" onclick="openForm('signup')">Signup</button>
+    </div>
+
+    <!-- Login Form -->
+    <section id="loginForm" class="form-section">
+      <h2>Login</h2>
+      <form action="dashboard.html" method="post">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Login</button>
+      </form>
+    </section>
+
+    <!-- Signup Form -->
+    <section id="signupForm" class="form-section" style="display: none;">
+      <h2>Signup</h2>
+        <form action="dashboard.html" method="post" id="signupForm">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <button type="submit">Signup</button>
+      </form>
+    </section>
+  </main>
+
+  <!-- JavaScript for Slider and Prompt -->
+  <script>
+    function openForm(formName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("form-section");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(formName + "Form").style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+
+    // Prompt after successful signup
+    document.getElementById('signupForm').addEventListener('submit', function(event) {
+      event.preventDefault(); // Prevent form submission
+      
+      // Show prompt
+      var choice = confirm("Congratulations! You have successfully signed up. Do you wish to create a portal or submit a query?");
+      if (choice) {
+        // Redirect to create a portal page
+        window.location.href = "verification.html";
+      } else {
+        // Redirect to create a query page
+        window.location.href = "create_query.html";
+      }
+    });
+  </script>
+</body>
+</html>
