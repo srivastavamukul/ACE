@@ -159,7 +159,7 @@ class _HomePageState extends State<HomePage> {
                   );
                 },
               ),
-            ),  
+            ),
             Padding(
               padding:
                   const EdgeInsets.only(left: 10, right: 10, bottom: 5, top: 5),
@@ -237,6 +237,7 @@ class _HomePageState extends State<HomePage> {
                         sendChat(id, "pending", subjectCont.text, chat.text,
                             widget.uid);
                         chat.text = "";
+                        subjectCont.text = "";
                         fetchChats();
                         setState(() {});
                       },
