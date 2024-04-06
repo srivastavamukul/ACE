@@ -1,5 +1,4 @@
 body {
-  /* font-family: sans-serif; */
   margin: 0;
   overflow: hidden;
   cursor: url("./assets/cursor-point-small.png"),default;
@@ -38,31 +37,27 @@ h1>span{
   -moz-text-fill-color: transparent;
 }
 
-.magnetic {
-  margin: -100px;
-  padding: 100px;
-  display: inline-block;
-  border-radius: 50%;
-  /*border: 1px solid #000; //use this for debugging*/
-}
-
-#magnet-button {
-  display: inline-block;
-}
 
 .my-button {
-  background-color: #FFF;
-  height: 50px;
-  width: 50px;
-  border-radius: 50%;
-  border: 1px solid #000;
+  height:50px;
+  width:100px;
+  color: cyan;
+  border-radius: 15px;
+  box-shadow: 0 5px 25px #00fff2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: 0.5s;
+  background: #1E293B;
+  opacity: 70%;
   cursor: pointer;
 }
 
 .my-button:hover {
-  color: #FFF;
+  color: violet;
   background-color: #000;
-  transition: 0.5s background-color, 0.5s box-shadow;
+  transition: 0.5s background-color, 0.5s box-shadow; 
   box-shadow: 0px 2px 25px rgba(0,0,0,0.5);
 }
 
