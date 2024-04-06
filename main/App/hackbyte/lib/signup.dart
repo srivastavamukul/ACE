@@ -52,7 +52,6 @@ class _SignUpState extends State<Signup> {
 
       var jsonRes = jsonDecode(response.body);
       if (jsonRes['status']) {
-        print("doing the job");
         var myToken = jsonRes['token'];
         await prefs.setString('token', myToken);
         if (!context.mounted) return;

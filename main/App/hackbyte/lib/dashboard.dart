@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:hackbyte/gifAnim.dart';
+import 'package:hackbyte/gifanim.dart';
 import 'package:hackbyte/login.dart';
 import 'package:hackbyte/name.dart';
 import 'package:hackbyte/welcome.dart';
