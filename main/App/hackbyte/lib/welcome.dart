@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:hackbyte/chat.dart';
 import 'package:hackbyte/dashboard.dart';
-import 'package:hackbyte/gifAnim.dart';
+import 'package:hackbyte/gifanim.dart';
 import 'package:hackbyte/login.dart';
 import 'package:hackbyte/name.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';
@@ -23,7 +23,7 @@ class Welcome extends StatefulWidget {
 class _WelcomeState extends State<Welcome> {
   late SharedPreferences prefs;
 
-  void EnterRoom(BuildContext context) async {
+  void enterRoom(BuildContext context) async {
     if (room.text.isNotEmpty) {
       var reqBody = {
         "room": room.text.trim(),
@@ -36,10 +36,9 @@ class _WelcomeState extends State<Welcome> {
 
       var jsonRes = jsonDecode(response.body);
       if (jsonRes['status']) {
-        print("kya baat hai");
-        var UID = jsonRes['UID'];
-        print(UID);
-        await prefs.setString('UID', UID);
+        var uid = jsonRes['UID'];
+        print(uid);
+        await prefs.setString('UID', uid);
         if (!context.mounted) return;
 
         Navigator.push(
@@ -47,7 +46,7 @@ class _WelcomeState extends State<Welcome> {
             MaterialPageRoute(
               builder: (context) => HomePage(
                 token: widget.token,
-                uid: UID,
+                uid: uid,
               ),
             ));
       }
@@ -146,7 +145,7 @@ class _WelcomeState extends State<Welcome> {
                       padding: const EdgeInsets.only(top: 20.0),
                       child: ElevatedButton(
                         onPressed: () {
-                          EnterRoom(context);
+                          enterRoom(context);
                         },
                         style: ButtonStyle(
                             alignment: Alignment.center,

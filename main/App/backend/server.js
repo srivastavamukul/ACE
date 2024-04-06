@@ -29,10 +29,6 @@ io.on("connection", (socket) => {
     console.log(data);
     socket.emit("build", "rebuild");
   });
-
-  socket.on("test", (data) => {
-    console.log(data);
-  });
 });
 
 app.get("/", function (req, res) {
@@ -132,26 +128,31 @@ async function countPending(req, res, next) {
   try {
     const pending = await roomModel.aggregate([
       {
-        $unwind: "$chats"
+        $unwind: "$chats",
       },
       {
         $match: {
           "chats._id": _id,
-          "chats.status": "pending"
-        }
+          "chats.status": "pending",
+        },
       },
       {
         $group: {
           _id: null,
-          count: { $sum: 1 }
-        }
-      }
+          count: { $sum: 1 },
+        },
+      },
     ]);
 
-    res.status(200).send({ status: true, pending: pending.length > 0 ? pending[0].count : 0 });
+    res
+      .status(200)
+      .send({
+        status: true,
+        pending: pending.length > 0 ? pending[0].count : 0,
+      });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: "Internal server error" });
   }
 }
 
@@ -160,26 +161,31 @@ async function countOngoing(req, res, next) {
   try {
     const ongoing = await roomModel.aggregate([
       {
-        $unwind: "$chats"
+        $unwind: "$chats",
       },
       {
         $match: {
           "chats._id": _id,
-          "chats.status": "active"
-        }
+          "chats.status": "active",
+        },
       },
       {
         $group: {
           _id: null,
-          count: { $sum: 1 }
-        }
-      }
+          count: { $sum: 1 },
+        },
+      },
     ]);
 
-    res.status(200).send({ status: true, ongoing: ongoing.length > 0 ? ongoing[0].count : 0 });
+    res
+      .status(200)
+      .send({
+        status: true,
+        ongoing: ongoing.length > 0 ? ongoing[0].count : 0,
+      });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: "Internal server error" });
   }
 }
 
@@ -188,26 +194,28 @@ async function countClosed(req, res, next) {
   try {
     const closed = await roomModel.aggregate([
       {
-        $unwind: "$chats"
+        $unwind: "$chats",
       },
       {
         $match: {
           "chats._id": _id,
-          "chats.status": "closed"
-        }
+          "chats.status": "closed",
+        },
       },
       {
         $group: {
           _id: null,
-          count: { $sum: 1 }
-        }
-      }
+          count: { $sum: 1 },
+        },
+      },
     ]);
 
-    res.status(200).send({ status: true, closed: closed.length > 0 ? closed[0].count : 0 });
+    res
+      .status(200)
+      .send({ status: true, closed: closed.length > 0 ? closed[0].count : 0 });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: "Internal server error" });
   }
 }
 
@@ -216,28 +224,29 @@ async function countStash(req, res, next) {
   try {
     const stash = await roomModel.aggregate([
       {
-        $unwind: "$chats"
+        $unwind: "$chats",
       },
       {
         $match: {
-          "chats._id": _id
-        }
+          "chats._id": _id,
+        },
       },
       {
         $group: {
           _id: null,
-          count: { $sum: 1 }
-        }
-      }
+          count: { $sum: 1 },
+        },
+      },
     ]);
 
-    res.status(200).send({ status: true, stash: stash.length > 0 ? stash[0].count : 0 });
+    res
+      .status(200)
+      .send({ status: true, stash: stash.length > 0 ? stash[0].count : 0 });
   } catch (error) {
     console.log(error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).json({ error: "Internal server error" });
   }
 }
-
 
 async function register(req, res, next) {
   try {
@@ -265,8 +274,6 @@ async function login(req, res, next) {
   if (!user) {
     console.log("user not found");
   } else {
-    console.log(user);
-
     if (await bcrypt.compare(password, user.password)) {
       if (await bcrypt.compare(email, user.email)) {
         const tokenData = { _id: user._id, username: user.username };
@@ -291,8 +298,6 @@ async function login(req, res, next) {
 async function joinRoom(req, res, next) {
   const { room } = await req.body;
   const roomdata = await findRoom(room);
-
-  console.log(room);
 
   if (!roomdata) {
     console.log("no such room exists");
@@ -328,8 +333,6 @@ async function ChatsFetch(req, res, next) {
   if (!roomdata) {
     console.log("room does not exist");
   } else {
-    console.log("fetched");
-
     res.status(200).send(roomdata.chats);
   }
 }

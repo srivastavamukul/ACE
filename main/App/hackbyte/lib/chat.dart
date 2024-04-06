@@ -44,13 +44,9 @@ class _HomePageState extends State<HomePage> {
       'transports': ['websocket'],
       "autoConnect": false,
     });
-    socket.onConnect((_) {
-      print('connected');
-    });
 
     socket.connect();
 
-    print(socket.connected);
     if (widget.token != null) {
       Map<String, dynamic> jwtDecodedtoken = JwtDecoder.decode(widget.token);
       username = jwtDecodedtoken['username'] ?? "";
