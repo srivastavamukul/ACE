@@ -1,0 +1,39 @@
+const memberForm =  document.querySelector("#memberForm");
+
+const err = document.querySelector(".error-message");
+const message = document.querySelector(".message");
+
+
+
+memberForm.addEventListener("submit", async(e)=>{
+    e.preventDefault();
+
+    const UID = document.querySelector("#UID").value;
+
+        const response = await fetch("/userLogin", {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json",
+            },
+            body: JSON.stringify({
+                UID:UID,
+            }),
+        });
+    
+        const result = await response.json();
+
+        if (result !== null) {
+            console.log(result);
+            if (result.redirect === "chat") {
+                window.location.href = "/chat";
+            } else {
+                memberForm.reset()
+                message.textContent = result.message;
+                setTimeout(()=>{
+                    message.textContent ="";
+                },3000)
+            }
+        }
+});
+
+
